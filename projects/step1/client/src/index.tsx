@@ -5,7 +5,10 @@ import * as ReactRedux from "react-redux";
 
 import "minireset.css";
 
+import { createStore } from "./store";
 import * as App from "./App";
+
+const store = createStore();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -14,3 +14,9 @@ export const createStore = () => {
 // ==================================================
 
 export type RootState = ReturnType<ReturnType<typeof createStore>["getState"]>;
+
+export type ThunkAction<R> = (
+  dispatch: ReturnType<typeof createStore>["dispatch"],
+  getState: ReturnType<typeof createStore>["getState"],
+  extraArgument: typeof Middleware.thunkExtraArgument
+) => R;

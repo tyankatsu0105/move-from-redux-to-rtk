@@ -1,0 +1,15 @@
+.TodoItem {
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #000;
+}
+.TodoItem-Description {
+  font-weight: bold;
+}
+.TodoItem-Dates {
+  display: flex;
+}
+.TodoItem-isDone {
+  display: flex;
+}

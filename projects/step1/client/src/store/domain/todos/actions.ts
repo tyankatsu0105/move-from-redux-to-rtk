@@ -7,7 +7,9 @@ export type Actions =
   | ReturnType<typeof remove>;
 
 export const create = (payload: {
+  id: Entity.Todo["id"];
   description: Entity.Todo["description"];
+  createdAt: Entity.Todo["createdAt"];
 }) => ({
   type: Types.CREATE,
   payload,
@@ -15,7 +17,8 @@ export const create = (payload: {
 
 export const update = (payload: {
   id: Entity.Todo["id"];
-  description: Entity.Todo["description"];
+  isDone: Entity.Todo["isDone"];
+  updatedAt: Entity.Todo["updatedAt"];
 }) => ({
   type: Types.UPDATE,
   payload,

@@ -1,5 +1,5 @@
-export { featureKey } from './constants';
-export * from './operations';
-export * from './selectors';
-export { actions, reducer } from './slice';
-export type { State } from './types';
+export { featureKey } from "./constants";
+export type { State } from "./reducer";
+export { reducer } from "./reducer";
+export * from "./operations";
+export * from "./selectors";
