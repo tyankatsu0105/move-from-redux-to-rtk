@@ -48,6 +48,14 @@ export const reducer = (state = initialState, action: Actions) => {
 
         draft.status = Status.status.SUCCESS;
       });
+    case Types.REMOVE:
+      return produce(state, (draft) => {
+        draft.status = Status.status.SUBMITTING;
+
+        draft.data = draft.data.filter((v) => v.id !== action.payload.id);
+
+        draft.status = Status.status.SUCCESS;
+      });
 
     default:
       return initialState;

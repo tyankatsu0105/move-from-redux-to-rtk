@@ -48,6 +48,15 @@ const Component = () => {
   );
 
   const create = createFormHandler.handleSubmit(onCreate);
+  const remove = (values: { id: Entity.Todo["id"]; index: number }) => {
+    editFormsHandler.remove(values.index);
+    dispatch(
+      StoreTodos.remove({
+        id: values.id,
+      })
+    );
+  };
+
   const update = React.useCallback(
     (values: { id: Entity.Todo["id"]; isDone: Entity.Todo["isDone"] }) => {
       dispatch(
@@ -66,6 +75,7 @@ const Component = () => {
       todos={todos}
       create={create}
       update={update}
+      remove={remove}
       form={{ createFormHandler, editFormHandler }}
     />
   );

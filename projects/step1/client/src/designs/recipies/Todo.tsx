@@ -18,6 +18,7 @@ type Props = {
     id: Entity.Todo["id"];
     isDone: Entity.Todo["isDone"];
   }) => void;
+  remove: (values: { id: Entity.Todo["id"]; index: number }) => void;
   form: {
     createFormHandler: ReactHookForm.UseFormReturn<Presenter.CreteInputValues>;
     editFormHandler: ReactHookForm.UseFormReturn<Presenter.EditInputArray>;
@@ -41,6 +42,7 @@ export const Component = (props: Props) => {
           index={index}
           todo={todo}
           update={props.update}
+          remove={props.remove}
           form={{
             editFormHandler: props.form.editFormHandler,
           }}

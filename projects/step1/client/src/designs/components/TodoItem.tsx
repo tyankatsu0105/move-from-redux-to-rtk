@@ -17,6 +17,7 @@ type Props = {
     id: Entity.Todo["id"];
     isDone: Entity.Todo["isDone"];
   }) => void;
+  remove: (values: { id: Entity.Todo["id"]; index: number }) => void;
   form: {
     editFormHandler: ReactHookForm.UseFormReturn<Presenter.EditInputArray>;
   };
@@ -55,6 +56,13 @@ export const Component = (props: Props) => {
         <p>createdAt{props.todo.createdAt}</p>
         <p>updatedAt{props.todo.updatedAt}</p>
       </div>
+
+      <button
+        type="button"
+        onClick={() => props.remove({ id: props.todo.id, index: props.index })}
+      >
+        Remove
+      </button>
     </div>
   );
 };

@@ -30,3 +30,13 @@ export const update = (params: {
 
   dispatch(Actions.update(payload));
 };
+
+export const remove = (params: {
+  id: Entity.Todo["id"];
+}): ThunkAction<void> => (dispatch) => {
+  const payload: Parameters<typeof Actions.remove>[0] = {
+    id: params.id,
+  };
+
+  dispatch(Actions.remove(payload));
+};
