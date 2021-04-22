@@ -1,0 +1,54 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"""
+ISO 8601準拠 YYYY-MM-DDTHH:mm:ss.sssZ
+ex: 2011-10-05T14:48:00.000Z
+"""
+scalar DateTime
+
+type Query {
+  todos: [Todo]!
+}
+
+type Todo {
+  id: ID!
+  isDone: Boolean!
+  description: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!): CreateTodoPayload!
+  updateTodo(input: UpdateTodoInput!): UpdateTodoPayload!
+  removeTodo(input: RemoveTodoInput!): RemoveTodoPayload!
+}
+
+input CreateTodoInput {
+  id: ID!
+  description: String!
+}
+
+type CreateTodoPayload {
+  todo: Todo
+}
+
+input UpdateTodoInput {
+  id: ID!
+  isDone: Boolean!
+}
+
+type UpdateTodoPayload {
+  todo: Todo
+}
+
+input RemoveTodoInput {
+  id: ID!
+}
+
+type RemoveTodoPayload {
+  todo: Todo
+}
