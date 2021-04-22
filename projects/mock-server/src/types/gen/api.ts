@@ -84,6 +84,65 @@ export type UpdateTodoPayload = {
   todo?: Maybe<Todo>;
 };
 
+export type CreateTodoMutationVariables = Exact<{
+  input: CreateTodoInput;
+}>;
+
+
+export type CreateTodoMutation = (
+  { __typename?: 'Mutation' }
+  & { createTodo: (
+    { __typename?: 'CreateTodoPayload' }
+    & { todo?: Maybe<(
+      { __typename?: 'Todo' }
+      & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+    )> }
+  ) }
+);
+
+export type RemoveTodoMutationVariables = Exact<{
+  input: RemoveTodoInput;
+}>;
+
+
+export type RemoveTodoMutation = (
+  { __typename?: 'Mutation' }
+  & { removeTodo: (
+    { __typename?: 'RemoveTodoPayload' }
+    & { todo?: Maybe<(
+      { __typename?: 'Todo' }
+      & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+    )> }
+  ) }
+);
+
+export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TodosQuery = (
+  { __typename?: 'Query' }
+  & { todos: Array<Maybe<(
+    { __typename?: 'Todo' }
+    & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+  )>> }
+);
+
+export type UpdateTodoMutationVariables = Exact<{
+  input: UpdateTodoInput;
+}>;
+
+
+export type UpdateTodoMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTodo: (
+    { __typename?: 'UpdateTodoPayload' }
+    & { todo?: Maybe<(
+      { __typename?: 'Todo' }
+      & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+    )> }
+  ) }
+);
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 

@@ -1,0 +1,11 @@
+mutation removeTodo($input: RemoveTodoInput!) {
+  removeTodo(input: $input) {
+    todo {
+      id
+      description
+      isDone
+      createdAt
+      updatedAt
+    }
+  }
+}
