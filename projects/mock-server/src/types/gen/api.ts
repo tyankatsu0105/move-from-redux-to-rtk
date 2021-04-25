@@ -19,7 +19,6 @@ export type Scalars = {
 };
 
 export type CreateTodoInput = {
-  id: Scalars['ID'];
   description: Scalars['String'];
 };
 
@@ -53,7 +52,7 @@ export type MutationRemoveTodoArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  todos: Array<Maybe<Todo>>;
+  todos?: Maybe<Array<Todo>>;
 };
 
 export type RemoveTodoInput = {
@@ -121,7 +120,7 @@ export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type TodosQuery = (
   { __typename?: 'Query' }
-  & { todos: Array<Maybe<(
+  & { todos?: Maybe<Array<(
     { __typename?: 'Todo' }
     & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
   )>> }
@@ -223,13 +222,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   CreateTodoInput: CreateTodoInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   CreateTodoPayload: ResolverTypeWrapper<CreateTodoPayload>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   RemoveTodoInput: RemoveTodoInput;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   RemoveTodoPayload: ResolverTypeWrapper<RemoveTodoPayload>;
   Todo: ResolverTypeWrapper<Todo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -240,13 +239,13 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   CreateTodoInput: CreateTodoInput;
-  ID: Scalars['ID'];
   String: Scalars['String'];
   CreateTodoPayload: CreateTodoPayload;
   DateTime: Scalars['DateTime'];
   Mutation: {};
   Query: {};
   RemoveTodoInput: RemoveTodoInput;
+  ID: Scalars['ID'];
   RemoveTodoPayload: RemoveTodoPayload;
   Todo: Todo;
   Boolean: Scalars['Boolean'];
@@ -270,7 +269,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  todos?: Resolver<Array<Maybe<ResolversTypes['Todo']>>, ParentType, ContextType>;
+  todos?: Resolver<Maybe<Array<ResolversTypes['Todo']>>, ParentType, ContextType>;
 }>;
 
 export type RemoveTodoPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RemoveTodoPayload'] = ResolversParentTypes['RemoveTodoPayload']> = ResolversObject<{

@@ -10,7 +10,7 @@ ex: 2011-10-05T14:48:00.000Z
 scalar DateTime
 
 type Query {
-  todos: [Todo]!
+  todos: [Todo!]
 }
 
 type Todo {
@@ -28,7 +28,6 @@ type Mutation {
 }
 
 input CreateTodoInput {
-  id: ID!
   description: String!
 }
 

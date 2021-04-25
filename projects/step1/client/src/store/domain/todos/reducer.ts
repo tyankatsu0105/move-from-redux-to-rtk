@@ -57,6 +57,17 @@ export const reducer = (state = initialState, action: Actions) => {
         draft.status = Status.status.SUCCESS;
       });
 
+    case Types.FETCH:
+      return produce(state, (draft) => {
+        if (action.payload.todos == null) return;
+
+        draft.status = Status.status.SUBMITTING;
+
+        draft.data = [...state.data, ...action.payload.todos];
+
+        draft.status = Status.status.SUCCESS;
+      });
+
     default:
       return initialState;
   }

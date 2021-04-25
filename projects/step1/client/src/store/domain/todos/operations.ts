@@ -1,8 +1,28 @@
 import { format } from "date-fns";
 import { ThunkAction } from "../../index";
 import * as Actions from "./actions";
+import * as GraphQLTypes from "../../../application/types/gen/api";
 
 import * as Entity from "../../../application/domain/todos/entity";
+
+export const fetchTodos = (): ThunkAction<void> => async (
+  dispatch,
+  _,
+  extraArgument
+) => {
+  try {
+    const { data } = await extraArgument.api.query<
+      GraphQLTypes.TodosQuery,
+      GraphQLTypes.TodosQueryVariables
+    >({
+      query: GraphQLTypes.TodosDocument,
+    });
+
+    dispatch(Actions.fetch(data));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const create = (params: {
   description: Entity.Todo["description"];

@@ -19,7 +19,6 @@ export type Scalars = {
 };
 
 export type CreateTodoInput = {
-  id: Scalars['ID'];
   description: Scalars['String'];
 };
 
@@ -50,7 +49,7 @@ export type MutationRemoveTodoArgs = {
 };
 
 export type Query = {
-  todos: Array<Maybe<Todo>>;
+  todos?: Maybe<Array<Todo>>;
 };
 
 export type RemoveTodoInput = {
@@ -95,7 +94,7 @@ export type RemoveTodoMutation = { removeTodo: { todo?: Maybe<Pick<Todo, 'id' | 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TodosQuery = { todos: Array<Maybe<Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>>> };
+export type TodosQuery = { todos?: Maybe<Array<Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>>> };
 
 export type UpdateTodoMutationVariables = Exact<{
   input: UpdateTodoInput;

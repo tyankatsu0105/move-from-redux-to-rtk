@@ -4,7 +4,8 @@ import * as Entity from "../../../application/domain/todos/entity";
 export type Actions =
   | ReturnType<typeof create>
   | ReturnType<typeof update>
-  | ReturnType<typeof remove>;
+  | ReturnType<typeof remove>
+  | ReturnType<typeof fetch>;
 
 export const create = (payload: {
   id: Entity.Todo["id"];
@@ -26,5 +27,10 @@ export const update = (payload: {
 
 export const remove = (payload: { id: Entity.Todo["id"] }) => ({
   type: Types.REMOVE,
+  payload,
+});
+
+export const fetch = (payload: { todos?: Entity.Todo[] | null }) => ({
+  type: Types.FETCH,
   payload,
 });

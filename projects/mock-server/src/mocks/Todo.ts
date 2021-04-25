@@ -3,7 +3,7 @@ import * as GraphQLTypes from "../types/gen/api";
 
 const todo = (): GraphQLTypes.Todo => ({
   __typename: "Todo",
-  id: Faker.random.uuid(),
+  id: Faker.datatype.uuid(),
   createdAt: Faker.date.past(2).toISOString(),
   updatedAt: Faker.date.past(1).toISOString(),
   description: Faker.name.title(),

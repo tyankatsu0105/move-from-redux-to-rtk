@@ -10,7 +10,7 @@ import * as Resolvers from "./resolvers";
 const ENDPOINT_VOYAGER = "/voyager" as const;
 
 const typeDefs = ApolloServerExpress.gql(
-  Fs.readFileSync(Path.resolve("schema/schema.graphql"), "utf8")
+  Fs.readFileSync(Path.resolve("../schema/schema.graphql"), "utf8")
 );
 
 const server = new ApolloServerExpress.ApolloServer({

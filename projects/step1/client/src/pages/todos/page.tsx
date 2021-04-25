@@ -70,6 +70,10 @@ const Component = () => {
     [dispatch]
   );
 
+  React.useEffect(() => {
+    dispatch(StoreTodos.fetchTodos());
+  }, [dispatch]);
+
   return (
     <Todo.Component
       todos={todos}
