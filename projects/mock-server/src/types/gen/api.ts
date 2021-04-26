@@ -110,7 +110,7 @@ export type RemoveTodoMutation = (
     { __typename?: 'RemoveTodoPayload' }
     & { todo?: Maybe<(
       { __typename?: 'Todo' }
-      & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+      & Pick<Todo, 'id'>
     )> }
   ) }
 );
@@ -137,7 +137,7 @@ export type UpdateTodoMutation = (
     { __typename?: 'UpdateTodoPayload' }
     & { todo?: Maybe<(
       { __typename?: 'Todo' }
-      & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+      & Pick<Todo, 'id' | 'isDone' | 'updatedAt'>
     )> }
   ) }
 );

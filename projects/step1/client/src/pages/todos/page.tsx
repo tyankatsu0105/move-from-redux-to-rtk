@@ -40,7 +40,6 @@ const Component = () => {
       dispatch(
         StoreTodos.create({
           description: values.description,
-          createdAt: new Date(),
         })
       );
     },
@@ -61,7 +60,6 @@ const Component = () => {
     (values: { id: Entity.Todo["id"]; isDone: Entity.Todo["isDone"] }) => {
       dispatch(
         StoreTodos.update({
-          updatedAt: new Date(),
           isDone: values.isDone,
           id: values.id,
         })
@@ -71,7 +69,7 @@ const Component = () => {
   );
 
   React.useEffect(() => {
-    dispatch(StoreTodos.fetchTodos());
+    dispatch(StoreTodos.fetch());
   }, [dispatch]);
 
   return (

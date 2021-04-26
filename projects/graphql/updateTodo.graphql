@@ -2,9 +2,7 @@ mutation updateTodo($input: UpdateTodoInput!) {
   updateTodo(input: $input) {
     todo {
       id
-      description
       isDone
-      createdAt
       updatedAt
     }
   }

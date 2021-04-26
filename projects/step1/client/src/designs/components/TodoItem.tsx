@@ -48,6 +48,7 @@ export const Component = (props: Props) => {
             type="checkbox"
             id={`isDone-${props.index}`}
             onClick={handleUpdate}
+            checked={props.todo.isDone}
           />
         </label>
       </div>

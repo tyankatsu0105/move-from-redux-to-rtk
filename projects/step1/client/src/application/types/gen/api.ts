@@ -89,7 +89,7 @@ export type RemoveTodoMutationVariables = Exact<{
 }>;
 
 
-export type RemoveTodoMutation = { removeTodo: { todo?: Maybe<Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>> } };
+export type RemoveTodoMutation = { removeTodo: { todo?: Maybe<Pick<Todo, 'id'>> } };
 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -101,7 +101,7 @@ export type UpdateTodoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTodoMutation = { updateTodo: { todo?: Maybe<Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>> } };
+export type UpdateTodoMutation = { updateTodo: { todo?: Maybe<Pick<Todo, 'id' | 'isDone' | 'updatedAt'>> } };
 
 
 export const CreateTodoDocument = gql`
@@ -125,10 +125,6 @@ export const RemoveTodoDocument = gql`
   removeTodo(input: $input) {
     todo {
       id
-      description
-      isDone
-      createdAt
-      updatedAt
     }
   }
 }
@@ -156,9 +152,7 @@ export const UpdateTodoDocument = gql`
   updateTodo(input: $input) {
     todo {
       id
-      description
       isDone
-      createdAt
       updatedAt
     }
   }

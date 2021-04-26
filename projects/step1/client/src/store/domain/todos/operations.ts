@@ -1,11 +1,10 @@
-import { format } from "date-fns";
 import { ThunkAction } from "../../index";
 import * as Actions from "./actions";
 import * as GraphQLTypes from "../../../application/types/gen/api";
 
 import * as Entity from "../../../application/domain/todos/entity";
 
-export const fetchTodos = (): ThunkAction<void> => async (
+export const fetch = (): ThunkAction<void> => async (
   dispatch,
   _,
   extraArgument
@@ -26,37 +25,55 @@ export const fetchTodos = (): ThunkAction<void> => async (
 
 export const create = (params: {
   description: Entity.Todo["description"];
-  createdAt: Date;
-}): ThunkAction<void> => (dispatch, _, extraArgument) => {
-  const payload: Parameters<typeof Actions.create>[0] = {
-    id: extraArgument.uuid(),
-    description: params.description,
-    createdAt: format(params.createdAt, "yyy/MM/dd HH:mm"),
-  };
+}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+  try {
+    const { data } = await extraArgument.api.mutate<
+      GraphQLTypes.CreateTodoMutation,
+      GraphQLTypes.CreateTodoMutationVariables
+    >({
+      mutation: GraphQLTypes.CreateTodoDocument,
+      variables: { input: { description: params.description } },
+    });
 
-  dispatch(Actions.create(payload));
+    dispatch(Actions.create(data));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const update = (params: {
   id: Entity.Todo["id"];
   isDone: Entity.Todo["isDone"];
-  updatedAt: Date;
-}): ThunkAction<void> => (dispatch) => {
-  const payload: Parameters<typeof Actions.update>[0] = {
-    id: params.id,
-    isDone: params.isDone,
-    updatedAt: format(params.updatedAt, "yyy/MM/dd HH:mm"),
-  };
+}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+  try {
+    const { data } = await extraArgument.api.mutate<
+      GraphQLTypes.UpdateTodoMutation,
+      GraphQLTypes.UpdateTodoMutationVariables
+    >({
+      mutation: GraphQLTypes.UpdateTodoDocument,
+      variables: { input: { id: params.id, isDone: params.isDone } },
+    });
 
-  dispatch(Actions.update(payload));
+    dispatch(Actions.update(data));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const remove = (params: {
   id: Entity.Todo["id"];
-}): ThunkAction<void> => (dispatch) => {
-  const payload: Parameters<typeof Actions.remove>[0] = {
-    id: params.id,
-  };
+}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+  try {
+    const { data } = await extraArgument.api.mutate<
+      GraphQLTypes.RemoveTodoMutation,
+      GraphQLTypes.RemoveTodoMutationVariables
+    >({
+      mutation: GraphQLTypes.RemoveTodoDocument,
+      variables: { input: { id: params.id } },
+    });
 
-  dispatch(Actions.remove(payload));
+    dispatch(Actions.remove(data));
+  } catch (error) {
+    console.error(error);
+  }
 };

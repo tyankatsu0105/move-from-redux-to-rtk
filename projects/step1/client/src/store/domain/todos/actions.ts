@@ -2,35 +2,41 @@ import * as Types from "./types";
 import * as Entity from "../../../application/domain/todos/entity";
 
 export type Actions =
+  | ReturnType<typeof fetch>
   | ReturnType<typeof create>
   | ReturnType<typeof update>
-  | ReturnType<typeof remove>
-  | ReturnType<typeof fetch>;
+  | ReturnType<typeof remove>;
 
-export const create = (payload: {
-  id: Entity.Todo["id"];
-  description: Entity.Todo["description"];
-  createdAt: Entity.Todo["createdAt"];
-}) => ({
+export const fetch = (payload: { todos?: Entity.Todo[] | null }) => ({
+  type: Types.FETCH,
+  payload,
+});
+
+export const create = (
+  payload?: { createTodo: { todo?: Entity.Todo | null } } | null
+) => ({
   type: Types.CREATE,
   payload,
 });
 
-export const update = (payload: {
-  id: Entity.Todo["id"];
-  isDone: Entity.Todo["isDone"];
-  updatedAt: Entity.Todo["updatedAt"];
-}) => ({
+export const update = (
+  payload?: {
+    updateTodo: {
+      todo?: Pick<Entity.Todo, "updatedAt" | "isDone" | "id"> | null;
+    };
+  } | null
+) => ({
   type: Types.UPDATE,
   payload,
 });
 
-export const remove = (payload: { id: Entity.Todo["id"] }) => ({
+export const remove = (
+  payload?: {
+    removeTodo: {
+      todo?: Pick<Entity.Todo, "id"> | null;
+    };
+  } | null
+) => ({
   type: Types.REMOVE,
-  payload,
-});
-
-export const fetch = (payload: { todos?: Entity.Todo[] | null }) => ({
-  type: Types.FETCH,
   payload,
 });
