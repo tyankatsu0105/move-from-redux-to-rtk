@@ -1,5 +1,5 @@
 import * as Types from "./types";
-import * as Entity from "../../../application/domain/todos/entity";
+import * as Entity from "../../../../application/domain/todos/entity";
 
 export type Actions =
   | ReturnType<typeof fetch>

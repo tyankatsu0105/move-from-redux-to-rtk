@@ -50,6 +50,12 @@ export type MutationRemoveTodoArgs = {
 
 export type Query = {
   todos?: Maybe<Array<Todo>>;
+  todo?: Maybe<Todo>;
+};
+
+
+export type QueryTodoArgs = {
+  id: Scalars['ID'];
 };
 
 export type RemoveTodoInput = {
@@ -90,6 +96,13 @@ export type RemoveTodoMutationVariables = Exact<{
 
 
 export type RemoveTodoMutation = { removeTodo: { todo?: Maybe<Pick<Todo, 'id'>> } };
+
+export type TodoQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type TodoQuery = { todo?: Maybe<Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>> };
 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -132,6 +145,21 @@ export const RemoveTodoDocument = gql`
 export type RemoveTodoMutationFn = Apollo.MutationFunction<RemoveTodoMutation, RemoveTodoMutationVariables>;
 export type RemoveTodoMutationResult = Apollo.MutationResult<RemoveTodoMutation>;
 export type RemoveTodoMutationOptions = Apollo.BaseMutationOptions<RemoveTodoMutation, RemoveTodoMutationVariables>;
+export const TodoDocument = gql`
+    query todo($id: ID!) {
+  todo(id: $id) {
+    id
+    description
+    isDone
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type TodoQueryResult = Apollo.QueryResult<TodoQuery, TodoQueryVariables>;
+export function refetchTodoQuery(variables?: TodoQueryVariables) {
+      return { query: TodoDocument, variables: variables }
+    }
 export const TodosDocument = gql`
     query todos {
   todos {

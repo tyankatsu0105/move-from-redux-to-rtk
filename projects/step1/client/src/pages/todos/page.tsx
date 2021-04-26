@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactRedux from "react-redux";
 import * as ReactHookForm from "react-hook-form";
 
-import * as StoreTodos from "../../store/domain/todos";
+import * as StoreTodosList from "../../store/domain/todos/list";
 import * as Todo from "../../designs/recipies/Todo";
 
 import * as Entity from "../../application/domain/todos/entity";
@@ -14,9 +14,9 @@ import * as Presenter from "../../application/domain/todos/presenter";
 
 const Component = () => {
   const dispatch = ReactRedux.useDispatch();
-  const todos = ReactRedux.useSelector(StoreTodos.dataSelector);
+  const todos = ReactRedux.useSelector(StoreTodosList.dataSelector);
   const initialFormValues = ReactRedux.useSelector(
-    StoreTodos.initialFormValuesSelector
+    StoreTodosList.initialFormValuesSelector
   );
 
   const createFormHandler = ReactHookForm.useForm<Presenter.CreteInputValues>();
@@ -38,7 +38,7 @@ const Component = () => {
         isDone: false,
       });
       dispatch(
-        StoreTodos.create({
+        StoreTodosList.create({
           description: values.description,
         })
       );
@@ -50,7 +50,7 @@ const Component = () => {
   const remove = (values: { id: Entity.Todo["id"]; index: number }) => {
     editFormsHandler.remove(values.index);
     dispatch(
-      StoreTodos.remove({
+      StoreTodosList.remove({
         id: values.id,
       })
     );
@@ -59,7 +59,7 @@ const Component = () => {
   const update = React.useCallback(
     (values: { id: Entity.Todo["id"]; isDone: Entity.Todo["isDone"] }) => {
       dispatch(
-        StoreTodos.update({
+        StoreTodosList.update({
           isDone: values.isDone,
           id: values.id,
         })
@@ -69,7 +69,7 @@ const Component = () => {
   );
 
   React.useEffect(() => {
-    dispatch(StoreTodos.fetch());
+    dispatch(StoreTodosList.fetch());
   }, [dispatch]);
 
   return (

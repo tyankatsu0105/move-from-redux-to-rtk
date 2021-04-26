@@ -1,8 +1,8 @@
-import { ThunkAction } from "../../index";
+import { ThunkAction } from "../../../index";
 import * as Actions from "./actions";
-import * as GraphQLTypes from "../../../application/types/gen/api";
+import * as GraphQLTypes from "../../../../application/types/gen/api";
 
-import * as Entity from "../../../application/domain/todos/entity";
+import * as Entity from "../../../../application/domain/todos/entity";
 
 export const fetch = (): ThunkAction<void> => async (
   dispatch,

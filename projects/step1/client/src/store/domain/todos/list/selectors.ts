@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
 
-import { RootState } from "../../index";
+import { RootState } from "../../../index";
 
-const featureState = (state: RootState) => state.domain.todos;
+const featureState = (state: RootState) => state.domain.todos.list;
 
 export const dataSelector = createSelector(featureState, (state) => state.data);
 

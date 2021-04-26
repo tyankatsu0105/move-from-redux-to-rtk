@@ -53,6 +53,12 @@ export type MutationRemoveTodoArgs = {
 export type Query = {
   __typename?: 'Query';
   todos?: Maybe<Array<Todo>>;
+  todo?: Maybe<Todo>;
+};
+
+
+export type QueryTodoArgs = {
+  id: Scalars['ID'];
 };
 
 export type RemoveTodoInput = {
@@ -113,6 +119,19 @@ export type RemoveTodoMutation = (
       & Pick<Todo, 'id'>
     )> }
   ) }
+);
+
+export type TodoQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type TodoQuery = (
+  { __typename?: 'Query' }
+  & { todo?: Maybe<(
+    { __typename?: 'Todo' }
+    & Pick<Todo, 'id' | 'description' | 'isDone' | 'createdAt' | 'updatedAt'>
+  )> }
 );
 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
@@ -227,8 +246,8 @@ export type ResolversTypes = ResolversObject<{
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  RemoveTodoInput: RemoveTodoInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  RemoveTodoInput: RemoveTodoInput;
   RemoveTodoPayload: ResolverTypeWrapper<RemoveTodoPayload>;
   Todo: ResolverTypeWrapper<Todo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -244,8 +263,8 @@ export type ResolversParentTypes = ResolversObject<{
   DateTime: Scalars['DateTime'];
   Mutation: {};
   Query: {};
-  RemoveTodoInput: RemoveTodoInput;
   ID: Scalars['ID'];
+  RemoveTodoInput: RemoveTodoInput;
   RemoveTodoPayload: RemoveTodoPayload;
   Todo: Todo;
   Boolean: Scalars['Boolean'];
@@ -270,6 +289,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   todos?: Resolver<Maybe<Array<ResolversTypes['Todo']>>, ParentType, ContextType>;
+  todo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<QueryTodoArgs, 'id'>>;
 }>;
 
 export type RemoveTodoPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RemoveTodoPayload'] = ResolversParentTypes['RemoveTodoPayload']> = ResolversObject<{

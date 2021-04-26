@@ -1,6 +1,6 @@
-import { DateTime } from "../../../application/valueObject/datetime";
-import * as GraphQLTypes from "../../../application/types/gen/api";
-import * as Entity from "../../../application/domain/todos/entity";
+import { DateTime } from "../../../../application/valueObject/datetime";
+import * as GraphQLTypes from "../../../../application/types/gen/api";
+import * as Entity from "../../../../application/domain/todos/entity";
 
 export class Fetch {
   public static toEntity(data: GraphQLTypes.TodosQuery): Entity.Todo[] {

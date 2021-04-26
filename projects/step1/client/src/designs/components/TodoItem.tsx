@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactRouterDOM from "react-router-dom";
 import * as ReactHookForm from "react-hook-form";
 
 import * as Presenter from "../../application/domain/todos/presenter";
@@ -64,6 +65,10 @@ export const Component = (props: Props) => {
       >
         Remove
       </button>
+
+      <ReactRouterDOM.Link to={`/todos/${props.todo.id}`}>
+        Detail
+      </ReactRouterDOM.Link>
     </div>
   );
 };
