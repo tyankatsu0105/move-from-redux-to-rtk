@@ -5,3 +5,5 @@ export type Todo = {
   description: string;
   isDone: boolean;
 };
+
+export type TodoEntities = Record<Todo["id"], Todo>;

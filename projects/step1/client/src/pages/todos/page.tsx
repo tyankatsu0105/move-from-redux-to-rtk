@@ -14,7 +14,7 @@ import * as Presenter from "../../application/domain/todos/presenter";
 
 const Component = () => {
   const dispatch = ReactRedux.useDispatch();
-  const todos = ReactRedux.useSelector(StoreTodosList.dataSelector);
+  const todos = ReactRedux.useSelector(StoreTodosList.listEntitiesSelector);
   const initialFormValues = ReactRedux.useSelector(
     StoreTodosList.initialFormValuesSelector
   );

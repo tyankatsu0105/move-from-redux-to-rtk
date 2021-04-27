@@ -10,12 +10,12 @@ import * as Entity from "../../../../application/domain/todos/entity";
 
 export type State = {
   status: Status.Status;
-  data: Entity.Todo[];
+  entities: Entity.TodoEntities;
 };
 
 const initialState: State = {
   status: Status.status.PRISTINE,
-  data: [],
+  entities: {},
 };
 
 export const reducer = (state = initialState, action: Actions) => {
@@ -26,7 +26,7 @@ export const reducer = (state = initialState, action: Actions) => {
 
         draft.status = Status.status.SUBMITTING;
 
-        draft.data = DTO.Fetch.toEntity(action.payload);
+        draft.entities = DTO.Fetch.toEntity(action.payload);
 
         draft.status = Status.status.SUCCESS;
       });
@@ -37,7 +37,7 @@ export const reducer = (state = initialState, action: Actions) => {
 
         draft.status = Status.status.SUBMITTING;
 
-        draft.data = [...draft.data, payload];
+        draft.entities[payload.id] = payload;
 
         draft.status = Status.status.SUCCESS;
       });
@@ -48,10 +48,8 @@ export const reducer = (state = initialState, action: Actions) => {
 
         draft.status = Status.status.SUBMITTING;
 
-        const index = draft.data.findIndex((todo) => todo.id === payload.id);
-
-        draft.data[index] = {
-          ...draft.data[index],
+        draft.entities[payload.id] = {
+          ...draft.entities[payload.id],
           isDone: payload.isDone,
           updatedAt: payload.updatedAt,
         };
@@ -65,7 +63,7 @@ export const reducer = (state = initialState, action: Actions) => {
 
         draft.status = Status.status.SUBMITTING;
 
-        draft.data = draft.data.filter((v) => v.id !== payload.id);
+        delete draft.entities[payload.id];
 
         draft.status = Status.status.SUCCESS;
       });

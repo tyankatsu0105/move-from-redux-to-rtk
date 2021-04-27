@@ -1,16 +1,21 @@
 import { DateTime } from "../../../../application/valueObject/datetime";
 import * as GraphQLTypes from "../../../../application/types/gen/api";
 import * as Entity from "../../../../application/domain/todos/entity";
+import { normalize, schema } from "normalizr";
 
 export class Fetch {
-  public static toEntity(data: GraphQLTypes.TodosQuery): Entity.Todo[] {
-    if (data.todos == null) return [];
+  public static toEntity(data: GraphQLTypes.TodosQuery): Entity.TodoEntities {
+    if (data.todos == null) return {};
 
-    return data.todos.map((todo) => ({
-      ...todo,
-      createdAt: new DateTime(todo.createdAt).format("yyy/MM/dd HH:mm:ss"),
-      updatedAt: new DateTime(todo.updatedAt).format("yyy/MM/dd HH:mm:ss"),
-    }));
+    const todo = new schema.Entity<Entity.Todo>("todos");
+    const todos = new schema.Array(todo);
+
+    const normalizedData = normalize<
+      Entity.Todo,
+      { todos: Entity.TodoEntities }
+    >(data.todos, todos).entities.todos;
+
+    return normalizedData;
   }
 }
 
