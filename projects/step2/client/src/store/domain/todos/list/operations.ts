@@ -35,7 +35,7 @@ export const create = (params: {
       variables: { input: { description: params.description } },
     });
 
-    dispatch(Actions.create(data));
+    if (data) dispatch(Actions.create(data));
   } catch (error) {
     console.error(error);
   }
@@ -54,7 +54,7 @@ export const update = (params: {
       variables: { input: { id: params.id, isDone: params.isDone } },
     });
 
-    dispatch(Actions.update(data));
+    if (data) dispatch(Actions.update(data));
   } catch (error) {
     console.error(error);
   }
@@ -72,7 +72,7 @@ export const remove = (params: {
       variables: { input: { id: params.id } },
     });
 
-    dispatch(Actions.remove(data));
+    if (data) dispatch(Actions.remove(data));
   } catch (error) {
     console.error(error);
   }
