@@ -109,3 +109,37 @@ const featureState = (state: RootState) => state.domain.todos.detail;
 );
 
 ```
+
+## step5
+
+### applyMiddleware
+
+RTK は Redux の applyMiddleware をそのまま利用しているので互換性がある。
+
+```diff
+- import { applyMiddleware } from "redux";
++ import * as ReduxToolkit from "@reduxjs/toolkit";
+
+import ReduxThunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+
+const cache = new InMemoryCache({});
+const client = new ApolloClient({
+  cache: cache,
+  uri: "http://localhost:4000/graphql",
+});
+
+export const thunkExtraArgument = {
+  api: {
+    mutate: client.mutate,
+    query: client.query,
+  },
+};
+
+export const middlewareEnhancer = composeWithDevTools(
+-   applyMiddleware(ReduxThunk.withExtraArgument(thunkExtraArgument))
++   ReduxToolkit.applyMiddleware(ReduxThunk.withExtraArgument(thunkExtraArgument))
+);
+```

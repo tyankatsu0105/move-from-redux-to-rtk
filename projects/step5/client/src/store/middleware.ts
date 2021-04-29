@@ -1,4 +1,5 @@
-import { applyMiddleware } from "redux";
+import * as ReduxToolkit from "@reduxjs/toolkit";
+
 import ReduxThunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -18,5 +19,5 @@ export const thunkExtraArgument = {
 };
 
 export const middlewareEnhancer = composeWithDevTools(
-  applyMiddleware(ReduxThunk.withExtraArgument(thunkExtraArgument))
+  ReduxToolkit.applyMiddleware(ReduxThunk.withExtraArgument(thunkExtraArgument))
 );
