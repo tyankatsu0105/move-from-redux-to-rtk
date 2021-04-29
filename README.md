@@ -2,6 +2,17 @@ Redux から Redux Toolkit への移行を段階的に行うガイド
 
 - https://www.reddit.com/r/reactjs/comments/huw2kq/migration_to_reduxtoolkit/
 
+```bash
+# mock-server起動
+make mock-server
+
+# graphql-code-generator起動
+make codegen
+
+# 各stepのclient起動
+make client step=2
+```
+
 # 背景
 
 Redux 公式ドキュメントでも Redux Toolkit の利用を推奨しているが、マイグレーションガイドらしきものが見つからなかった。
@@ -39,3 +50,24 @@ Redux 公式ドキュメントでも Redux Toolkit の利用を推奨してい�
 まだ Redux Toolkit に移行できてない todo アプリケーション
 
 ## step2
+
+### combineReducers
+
+RTK は Redux の combineReducers をそのまま利用しているので互換性がある。
+全ての combineReducers を RTK のものを利用する。
+
+```diff
+- import * as Redux from "redux";
++ import * as ReduxToolkit from "@reduxjs/toolkit";
+
+import * as Domain from "./domain";
+
+export const createReducer = () => {
+-   const reducer = Redux.combineReducers({
++   const reducer = ReduxToolkit.combineReducers({
+    [Domain.featureKey]: Domain.reducer,
+  });
+
+  return { reducer };
+};
+```
