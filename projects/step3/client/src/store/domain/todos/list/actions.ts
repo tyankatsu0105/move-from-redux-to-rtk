@@ -13,14 +13,14 @@ export const fetch = (payload: { todos?: Entity.Todo[] | null }) => ({
 });
 
 export const create = (
-  payload?: { createTodo: { todo?: Entity.Todo | null } } | null
+  payload: { createTodo: { todo?: Entity.Todo | null } } | null
 ) => ({
   type: Types.CREATE,
   payload,
 });
 
 export const update = (
-  payload?: {
+  payload: {
     updateTodo: {
       todo?: Pick<Entity.Todo, "updatedAt" | "isDone" | "id"> | null;
     };
@@ -31,7 +31,7 @@ export const update = (
 });
 
 export const remove = (
-  payload?: {
+  payload: {
     removeTodo: {
       todo?: Pick<Entity.Todo, "id"> | null;
     };
