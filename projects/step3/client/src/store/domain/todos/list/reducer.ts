@@ -1,9 +1,10 @@
-import * as ReduxToolkit from "@reduxjs/toolkit";
+import produce from "immer";
 
 import * as DTO from "./dto";
 
+import * as Types from "./types";
 import * as Status from "../../../status";
-import * as Actions from "./actions";
+import { Actions } from "./actions";
 
 import * as Entity from "../../../../application/domain/todos/entity";
 
@@ -17,48 +18,57 @@ const initialState: State = {
   entities: {},
 };
 
-export const reducer = ReduxToolkit.createReducer(initialState, (builder) => {
-  builder.addCase(Actions.fetch, (state, action) => {
-    if (action.payload.todos == null) return;
+export const reducer = (state = initialState, action: Actions) => {
+  switch (action.type) {
+    case Types.FETCH:
+      return produce(state, (draft) => {
+        if (action.payload.todos == null) return;
 
-    state.status = Status.status.SUBMITTING;
+        draft.status = Status.status.SUBMITTING;
 
-    state.entities = DTO.Fetch.toEntity(action.payload);
+        draft.entities = DTO.Fetch.toEntity(action.payload);
 
-    state.status = Status.status.SUCCESS;
-  });
-  builder.addCase(Actions.create, (state, action) => {
-    const payload = DTO.Create.toEntity(action.payload);
-    if (payload == null) return;
+        draft.status = Status.status.SUCCESS;
+      });
+    case Types.CREATE:
+      return produce(state, (draft) => {
+        const payload = DTO.Create.toEntity(action.payload);
+        if (payload == null) return;
 
-    state.status = Status.status.SUBMITTING;
+        draft.status = Status.status.SUBMITTING;
 
-    state.entities[payload.id] = payload;
+        draft.entities[payload.id] = payload;
 
-    state.status = Status.status.SUCCESS;
-  });
-  builder.addCase(Actions.update, (state, action) => {
-    const payload = DTO.Update.toEntity(action.payload);
-    if (payload == null) return;
+        draft.status = Status.status.SUCCESS;
+      });
+    case Types.UPDATE:
+      return produce(state, (draft) => {
+        const payload = DTO.Update.toEntity(action.payload);
+        if (payload == null) return;
 
-    state.status = Status.status.SUBMITTING;
+        draft.status = Status.status.SUBMITTING;
 
-    state.entities[payload.id] = {
-      ...state.entities[payload.id],
-      isDone: payload.isDone,
-      updatedAt: payload.updatedAt,
-    };
+        draft.entities[payload.id] = {
+          ...draft.entities[payload.id],
+          isDone: payload.isDone,
+          updatedAt: payload.updatedAt,
+        };
 
-    state.status = Status.status.SUCCESS;
-  });
-  builder.addCase(Actions.remove, (state, action) => {
-    const payload = DTO.Remove.toEntity(action.payload);
-    if (payload == null) return;
+        draft.status = Status.status.SUCCESS;
+      });
+    case Types.REMOVE:
+      return produce(state, (draft) => {
+        const payload = DTO.Remove.toEntity(action.payload);
+        if (payload == null) return;
 
-    state.status = Status.status.SUBMITTING;
+        draft.status = Status.status.SUBMITTING;
 
-    delete state.entities[payload.id];
+        delete draft.entities[payload.id];
 
-    state.status = Status.status.SUCCESS;
-  });
-});
+        draft.status = Status.status.SUCCESS;
+      });
+
+    default:
+      return initialState;
+  }
+};
