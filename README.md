@@ -79,4 +79,4 @@ export const createReducer = () => {
 RTK の createReducer は`Builder Callback`パターンを用いて、createAction で作った関数を併用しながら処理を組み立てていく。
 そのため、createAction を使うなら createReducer へ移行しなければならないし、createReducer を使うなら createAction へ移行しなければならない。
 従来の switch ケースでの reducer の組み立てパターンとの併用が可能なので、1 つの reducer ごとに createAction, createReducer を使った reducer に差し替えしていくことが可能。  
-https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/aceb31d5991cd84439a6ef18ae430683529ea731
+https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f87789b830103a0157cba1bdc6322dd51ee8b487
