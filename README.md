@@ -23,6 +23,7 @@ Redux 公式ドキュメントでも Redux Toolkit の利用を推奨してい�
 
 - create-react-app を元に作った todo アプリケーション
 - mock-server とのデータ通信は GraphQL を利用
+- redux thunk の extraArgs に、apollo client の query と mutation のメソッドを追加して、thunk action 上で query と mutation が実行できる。
 - 最初に mock-server から todo リストを fetch する
 - クライアントで利用したいデータに各アイテムを整形し、 id を元に正規化する
 - 正規化したデータを Redux で store に格納する
