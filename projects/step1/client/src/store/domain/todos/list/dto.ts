@@ -6,14 +6,19 @@ import { normalize, schema } from "normalizr";
 export class Fetch {
   public static toEntity(data: GraphQLTypes.TodosQuery): Entity.TodoEntities {
     if (data.todos == null) return {};
+    const todos: Entity.Todo[] = data.todos.map((todo) => ({
+      ...todo,
+      createdAt: new DateTime(todo.createdAt).format("yyy/MM/dd HH:mm:ss"),
+      updatedAt: new DateTime(todo.updatedAt).format("yyy/MM/dd HH:mm:ss"),
+    }));
 
-    const todo = new schema.Entity<Entity.Todo>("todos");
-    const todos = new schema.Array(todo);
+    const schemaTodo = new schema.Entity<Entity.Todo>("todos");
+    const schemaTodos = new schema.Array(schemaTodo);
 
     const normalizedData = normalize<
       Entity.Todo,
       { todos: Entity.TodoEntities }
-    >(data.todos, todos).entities.todos;
+    >(todos, schemaTodos).entities.todos;
 
     return normalizedData;
   }

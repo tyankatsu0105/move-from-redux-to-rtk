@@ -7,9 +7,6 @@
 .TodoItem-Description {
   font-weight: bold;
 }
-.TodoItem-Dates {
-  display: flex;
-}
 .TodoItem-isDone {
   display: flex;
 }
