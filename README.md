@@ -80,3 +80,32 @@ RTK の createReducer は`Builder Callback`パターンを用いて、createActi
 そのため、createAction を使うなら createReducer へ移行しなければならないし、createReducer を使うなら createAction へ移行しなければならない。
 従来の switch ケースでの reducer の組み立てパターンとの併用が可能なので、1 つの reducer ごとに createAction, createReducer を使った reducer に差し替えしていくことが可能。  
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f87789b830103a0157cba1bdc6322dd51ee8b487
+
+## step4
+
+### createSelector
+
+RTK は reselect の createSelector をそのまま利用しているので互換性がある。
+全ての createSelector を RTK のものを利用する。
+
+```diff
+- import { createSelector } from "reselect";
++ import * as ReduxToolkit from "@reduxjs/toolkit";
+
+import { RootState } from "../../../index";
+
+const featureState = (state: RootState) => state.domain.todos.detail;
+
+- export const todoSelector = createSelector(featureState, (state) => ({
++ export const todoSelector = ReduxToolkit.createSelector(
+  featureState,
+  (state) => ({
+    id: state.id,
+    description: state.description,
+    isDone: state.isDone,
+    createdAt: state.createdAt,
+    updatedAt: state.updatedAt,
+  })
+);
+
+```
