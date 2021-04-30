@@ -24,3 +24,14 @@ export type ThunkAction<R> = (
   getState: ReturnType<typeof createStore>["getState"],
   extraArgument: typeof Middleware.extraArgument
 ) => R;
+
+/**
+ * Override type AsyncThunkConfig of ReduxToolkit
+ * @see https://github.com/reduxjs/redux-toolkit/blob/de1282c1ec7eb8db1590a60c55f0ec21004b8675/src/createAsyncThunk.ts#L65-L70
+ */
+export type AsyncThunkConfig<RejectValue = unknown> = {
+  dispatch: ReturnType<typeof createStore>["dispatch"];
+  extra: typeof Middleware.extraArgument;
+  rejectValue: RejectValue;
+  state: RootState;
+};

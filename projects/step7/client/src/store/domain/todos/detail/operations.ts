@@ -1,23 +1,28 @@
-import { ThunkAction } from "../../../index";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { AsyncThunkConfig } from "../../../index";
 import * as Actions from "./actions";
+import * as Types from "./types";
 import * as GraphQLTypes from "../../../../application/types/gen/api";
 
 import * as Entity from "../../../../application/domain/todos/entity";
 
-export const fetch = (params: {
-  id: Entity.Todo["id"];
-}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+export const fetch = createAsyncThunk<
+  void,
+  { id: Entity.Todo["id"] },
+  AsyncThunkConfig
+>(Types.FETCH, async (args, thunkAPI) => {
   try {
-    const { data } = await extraArgument.api.query<
+    const { data } = await thunkAPI.extra.api.query<
       GraphQLTypes.TodoQuery,
       GraphQLTypes.TodoQueryVariables
     >({
       query: GraphQLTypes.TodoDocument,
-      variables: { id: params.id },
+      variables: { id: args.id },
     });
 
-    dispatch(Actions.fetch(data));
+    thunkAPI.dispatch(Actions.fetch(data));
   } catch (error) {
     console.error(error);
   }
-};
+});
