@@ -5,12 +5,12 @@ import * as Reducer from "./reducer";
 
 export const createStore = () => {
   const { reducer } = Reducer.createReducer();
+  const { middleware } = Middleware.createMiddleware();
 
-  return ReduxToolkit.createStore(
+  return ReduxToolkit.configureStore({
+    middleware,
     reducer,
-    undefined,
-    Middleware.middlewareEnhancer
-  );
+  });
 };
 
 // ==================================================
@@ -22,5 +22,5 @@ export type RootState = ReturnType<ReturnType<typeof createStore>["getState"]>;
 export type ThunkAction<R> = (
   dispatch: ReturnType<typeof createStore>["dispatch"],
   getState: ReturnType<typeof createStore>["getState"],
-  extraArgument: typeof Middleware.thunkExtraArgument
+  extraArgument: typeof Middleware.extraArgument
 ) => R;
