@@ -162,3 +162,10 @@ createAsyncThunk で作った関数は react-redux の useDispatch で使う事�
 そのため、従来の thunk action と併用が可能なので、少しずつ書き換えが可能。  
 createAsyncThunk 向けの型定義を用意して、それを用いて関数を作る。  
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/6ee5d392265ce750e67130051d6546cf9a7a0d07
+
+## step8
+
+### 不要なものの削除
+
+redux thunk 向けの型定義、使わなくなったパッケージ等を、移行が完了したタイミングで削除する。  
+https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f0edc106d24b318d26823974ee9bc374cb8cb468
