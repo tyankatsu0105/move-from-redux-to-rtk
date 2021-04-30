@@ -15,8 +15,8 @@ make client step=2
 
 # 背景
 
-Redux 公式ドキュメントでも Redux Toolkit の利用を推奨しているが、マイグレーションガイドらしきものが見つからなかった。
-一気に移行ができない規模のアプリケーションも世の中にはあるので、少しずつ移行する術を見つけたい。
+Redux 公式ドキュメントでも Redux Toolkit の利用を推奨しているが、マイグレーションガイドらしきものが見つからなかった。  
+一気に移行ができない規模のアプリケーションも世の中にはあるので、少しずつ移行する術を見つけたい。  
 ここではかんたんに todo アプリケーションを想定してステップを複数に分けて移行の方法を紹介する。
 
 # 利用技術
@@ -76,8 +76,8 @@ export const createReducer = () => {
 
 ### createAction, createReducer
 
-RTK の createReducer は`Builder Callback`パターンを用いて、createAction で作った関数を併用しながら処理を組み立てていく。
-そのため、createAction を使うなら createReducer へ移行しなければならないし、createReducer を使うなら createAction へ移行しなければならない。
+RTK の createReducer は`Builder Callback`パターンを用いて、createAction で作った関数を併用しながら処理を組み立てていく。  
+そのため、createAction を使うなら createReducer へ移行しなければならないし、createReducer を使うなら createAction へ移行しなければならない。  
 従来の switch ケースでの reducer の組み立てパターンとの併用が可能なので、1 つの reducer ごとに createAction, createReducer を使った reducer に差し替えしていくことが可能。  
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f87789b830103a0157cba1bdc6322dd51ee8b487
 
@@ -85,7 +85,7 @@ https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f87789b830103a015
 
 ### createSelector
 
-RTK は reselect の createSelector をそのまま利用しているので互換性がある。
+RTK は reselect の createSelector をそのまま利用しているので互換性がある。  
 全ての createSelector を RTK のものを利用する。
 
 ```diff
@@ -148,8 +148,17 @@ export const middlewareEnhancer = composeWithDevTools(
 
 ### getDefaultMiddleware, configureStore
 
-RTK に内包されている redux-thunk を利用するために getDefaultMiddleware を使う必要があり、getDefaultMiddleware を利用するために configureStore を使う必要がある。
+RTK に内包されている redux-thunk を利用するために getDefaultMiddleware を使う必要があり、getDefaultMiddleware を利用するために configureStore を使う必要がある。  
 変更点はそこまでないので一気にやってしまう。  
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/156765f487f78e25e34862d66a2d241d61461972
 
 > redux-devtools-extension と redux-thunk は RTK 内部で利用しているので uninstall して構わない
+
+## step7
+
+### createAsyncThunk
+
+createAsyncThunk で作った関数は react-redux の useDispatch で使う事ができるので、今まで通りの使い方ができる。  
+そのため、従来の thunk action と併用が可能なので、少しずつ書き換えが可能。  
+createAsyncThunk 向けの型定義を用意して、それを用いて関数を作る。  
+https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/6ee5d392265ce750e67130051d6546cf9a7a0d07
