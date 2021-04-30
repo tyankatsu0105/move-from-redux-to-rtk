@@ -1,79 +1,86 @@
-import { ThunkAction } from "../../../index";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { AsyncThunkConfig } from "../../../index";
 import * as Actions from "./actions";
+import * as Types from "./types";
 import * as GraphQLTypes from "../../../../application/types/gen/api";
 
 import * as Entity from "../../../../application/domain/todos/entity";
 
-export const fetch = (): ThunkAction<void> => async (
-  dispatch,
-  _,
-  extraArgument
-) => {
-  try {
-    const { data } = await extraArgument.api.query<
-      GraphQLTypes.TodosQuery,
-      GraphQLTypes.TodosQueryVariables
-    >({
-      query: GraphQLTypes.TodosDocument,
-    });
+export const fetch = createAsyncThunk<void, undefined, AsyncThunkConfig>(
+  Types.FETCH,
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await thunkAPI.extra.api.query<
+        GraphQLTypes.TodosQuery,
+        GraphQLTypes.TodosQueryVariables
+      >({
+        query: GraphQLTypes.TodosDocument,
+      });
 
-    dispatch(Actions.fetch(data));
-  } catch (error) {
-    console.error(error);
+      thunkAPI.dispatch(Actions.fetch(data));
+    } catch (error) {
+      console.error(error);
+    }
   }
-};
+);
 
-export const create = (params: {
-  description: Entity.Todo["description"];
-}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+export const create = createAsyncThunk<
+  void,
+  { description: Entity.Todo["description"] },
+  AsyncThunkConfig
+>(Types.CREATE, async (args, thunkAPI) => {
   try {
-    const { data } = await extraArgument.api.mutate<
+    const { data } = await thunkAPI.extra.api.mutate<
       GraphQLTypes.CreateTodoMutation,
       GraphQLTypes.CreateTodoMutationVariables
     >({
       mutation: GraphQLTypes.CreateTodoDocument,
-      variables: { input: { description: params.description } },
+      variables: { input: { description: args.description } },
     });
 
-    if (data) dispatch(Actions.create(data));
+    if (data) thunkAPI.dispatch(Actions.create(data));
   } catch (error) {
     console.error(error);
   }
-};
+});
 
-export const update = (params: {
-  id: Entity.Todo["id"];
-  isDone: Entity.Todo["isDone"];
-}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+export const update = createAsyncThunk<
+  void,
+  { id: Entity.Todo["id"]; isDone: Entity.Todo["isDone"] },
+  AsyncThunkConfig
+>(Types.UPDATE, async (args, thunkAPI) => {
   try {
-    const { data } = await extraArgument.api.mutate<
+    const { data } = await thunkAPI.extra.api.mutate<
       GraphQLTypes.UpdateTodoMutation,
       GraphQLTypes.UpdateTodoMutationVariables
     >({
       mutation: GraphQLTypes.UpdateTodoDocument,
-      variables: { input: { id: params.id, isDone: params.isDone } },
+      variables: { input: { id: args.id, isDone: args.isDone } },
     });
 
-    if (data) dispatch(Actions.update(data));
+    if (data) thunkAPI.dispatch(Actions.update(data));
   } catch (error) {
     console.error(error);
   }
-};
+});
 
-export const remove = (params: {
-  id: Entity.Todo["id"];
-}): ThunkAction<void> => async (dispatch, _, extraArgument) => {
+export const remove = createAsyncThunk<
+  void,
+  { id: Entity.Todo["id"] },
+  AsyncThunkConfig
+>(Types.REMOVE, async (args, thunkAPI) => {
   try {
-    const { data } = await extraArgument.api.mutate<
+    const { data } = await thunkAPI.extra.api.mutate<
       GraphQLTypes.RemoveTodoMutation,
       GraphQLTypes.RemoveTodoMutationVariables
     >({
       mutation: GraphQLTypes.RemoveTodoDocument,
-      variables: { input: { id: params.id } },
+      variables: { input: { id: args.id } },
     });
 
-    if (data) dispatch(Actions.remove(data));
+    if (data) thunkAPI.dispatch(Actions.remove(data));
   } catch (error) {
     console.error(error);
   }
-};
+});
