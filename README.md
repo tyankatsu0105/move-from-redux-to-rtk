@@ -143,3 +143,13 @@ export const middlewareEnhancer = composeWithDevTools(
 +   ReduxToolkit.applyMiddleware(ReduxThunk.withExtraArgument(thunkExtraArgument))
 );
 ```
+
+## step6
+
+### getDefaultMiddleware, configureStore
+
+RTK に内包されている redux-thunk を利用するために getDefaultMiddleware を使う必要があり、getDefaultMiddleware を利用するために configureStore を使う必要がある。
+変更点はそこまでないので一気にやってしまう。  
+https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/156765f487f78e25e34862d66a2d241d61461972
+
+> redux-devtools-extension と redux-thunk は RTK 内部で利用しているので uninstall して構わない
