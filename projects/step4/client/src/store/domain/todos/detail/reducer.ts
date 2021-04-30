@@ -40,26 +40,3 @@ export const reducer = ReduxToolkit.createReducer(initialState, (builder) => {
     state.status = Status.status.SUCCESS;
   });
 });
-
-// export const reducer = (state = initialState, action: Actions) => {
-//   switch (action.type) {
-//     case Types.FETCH:
-//       return produce(state, (draft) => {
-//         const payload = DTO.Fetch.toEntity(action.payload);
-//         if (payload == null) return;
-
-//         draft.status = Status.status.SUBMITTING;
-
-//         draft.id = payload.id;
-//         draft.description = payload.description;
-//         draft.isDone = payload.isDone;
-//         draft.createdAt = payload.createdAt;
-//         draft.updatedAt = payload.updatedAt;
-
-//         draft.status = Status.status.SUCCESS;
-//       });
-
-//     default:
-//       return initialState;
-//   }
-// };
