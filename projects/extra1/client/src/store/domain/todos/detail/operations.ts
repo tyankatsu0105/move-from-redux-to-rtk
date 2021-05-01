@@ -1,16 +1,16 @@
+import { ApolloError } from "@apollo/client";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { AsyncThunkConfig } from "../../../index";
-import * as Actions from "./actions";
 import * as Types from "./types";
 import * as GraphQLTypes from "../../../../application/types/gen/api";
 
 import * as Entity from "../../../../application/domain/todos/entity";
 
 export const fetch = createAsyncThunk<
-  void,
+  GraphQLTypes.TodoQuery,
   { id: Entity.Todo["id"] },
-  AsyncThunkConfig
+  AsyncThunkConfig<ApolloError>
 >(Types.FETCH, async (args, thunkAPI) => {
   try {
     const { data } = await thunkAPI.extra.api.query<
@@ -21,8 +21,8 @@ export const fetch = createAsyncThunk<
       variables: { id: args.id },
     });
 
-    thunkAPI.dispatch(Actions.fetch(data));
+    return data;
   } catch (error) {
-    console.error(error);
+    return thunkAPI.rejectWithValue(error);
   }
 });
