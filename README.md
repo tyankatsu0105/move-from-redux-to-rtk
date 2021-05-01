@@ -182,3 +182,10 @@ createAsyncThunk で作成した Redux thunk action creator は、createReducer 
 rejectWithValue で error の型をつけて返すことで、rejected の中でのエラーハンドリングがやりやすくなる。
 
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/401276e11ac1552200dcc8a7008de7054daa199d
+
+## その他
+
+- normalizr で正規化したデータは、createEntityAdapter を使って書き換えることができるのか検討する
+  - https://redux-toolkit.js.org/api/createEntityAdapter
+- createAction と createReducer を使って reducer を作る場合は、createSlice を使って簡略化できるので、移行したいかどうか検討する
+  - https://redux-toolkit.js.org/api/createSlice
