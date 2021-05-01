@@ -92,6 +92,16 @@ generates:
       withHooks: false
       withRefetchFn: true
 
+  ../extra1/client/src/application/types/gen/api.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      skipTypename: true
+      withHooks: false
+      withRefetchFn: true
+
 config:
   # enumの代わりにconst assertionのconstを使う
   enumsAsConst: true
