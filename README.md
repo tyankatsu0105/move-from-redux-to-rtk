@@ -11,6 +11,9 @@ make codegen
 
 # 各stepのclient起動
 make client step=2
+
+# 各extraのclient起動
+make client-extra extra=2
 ```
 
 # 背景
@@ -169,3 +172,13 @@ https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/6ee5d392265ce750e
 
 redux thunk 向けの型定義、使わなくなったパッケージ等を、移行が完了したタイミングで削除する。  
 https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/f0edc106d24b318d26823974ee9bc374cb8cb468
+
+## extra1
+
+### createReducer with createAsyncThunk
+
+createAsyncThunk で作成した Redux thunk action creator は、createReducer の builder callback に組み込むことができる。  
+そうすることで、`pending`, `fulfilled`, `rejected` の状態別に処理を書くことができるので柔軟な状態別処理を作ることができる。  
+rejectWithValue で error の型をつけて返すことで、rejected の中でのエラーハンドリングがやりやすくなる。
+
+https://github.com/tyankatsu0105/move-from-redux-to-rtk/commit/401276e11ac1552200dcc8a7008de7054daa199d
