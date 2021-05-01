@@ -1,0 +1,57 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "dependencies": {
+    "@apollo/client": "3.3.15",
+    "@apollo/link-error": "2.0.0-beta.3",
+    "@reduxjs/toolkit": "1.5.1",
+    "date-fns": "2.21.1",
+    "graphql": "15.5.0",
+    "minireset.css": "0.0.7",
+    "normalizr": "3.6.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "7.1.1",
+    "react-redux": "7.2.3",
+    "react-router-dom": "5.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.11.10",
+    "@testing-library/react": "11.2.6",
+    "@testing-library/user-event": "12.8.3",
+    "@types/jest": "26.0.22",
+    "@types/node": "12.20.10",
+    "@types/normalizr": "2.0.18",
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3",
+    "@types/react-redux": "7.1.16",
+    "@types/react-router-dom": "5.1.7",
+    "react-scripts": "4.0.3",
+    "typescript": "4.2.4"
+  }
+}
