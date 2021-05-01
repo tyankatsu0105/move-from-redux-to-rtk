@@ -3,7 +3,7 @@ import * as ReduxToolkit from "@reduxjs/toolkit";
 import * as DTO from "./dto";
 
 import * as Status from "../../../status";
-import * as Operations from "./operations";
+import * as Actions from "./actions";
 
 import * as Entity from "../../../../application/domain/todos/entity";
 
@@ -25,14 +25,11 @@ const initialState: State = {
   updatedAt: "",
 };
 export const reducer = ReduxToolkit.createReducer(initialState, (builder) => {
-  builder.addCase(Operations.fetch.pending, (state, action) => {
-    state.status = Status.status.SUBMITTING;
-  });
-  builder.addCase(Operations.fetch.fulfilled, (state, action) => {
-    state.status = Status.status.VALID;
-
+  builder.addCase(Actions.fetch, (state, action) => {
     const payload = DTO.Fetch.toEntity(action.payload);
     if (payload == null) return;
+
+    state.status = Status.status.SUBMITTING;
 
     state.id = payload.id;
     state.description = payload.description;
@@ -41,9 +38,5 @@ export const reducer = ReduxToolkit.createReducer(initialState, (builder) => {
     state.updatedAt = payload.updatedAt;
 
     state.status = Status.status.SUCCESS;
-  });
-  builder.addCase(Operations.fetch.rejected, (state, action) => {
-    state.status = Status.status.INVALID;
-    console.error(JSON.stringify(action.payload));
   });
 });
